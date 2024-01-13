@@ -2,13 +2,15 @@
 import React, { useContext, useState } from 'react';
 import {BookingsContext} from "../Context/BookingContext.jsx";
 const BookingsList = () => {
-    const { bookings, deleteBooking } = useContext(BookingsContext);
+    const { bookings, deleteBooking } = useContext(BookingsContext); // Contexto para manejar los datos de las reservas
     const [expandedBooking, setExpandedBooking] = useState(null);
 
+    //Esta función es para mostrar más detalles de la reserva
     const toggleBookingDetails = booking => {
         setExpandedBooking(expandedBooking === booking ? null : booking);
     };
 
+    // Muestra un mensaje para confirmar si de verdad se quiere eliminar la reserva
     const handleDeleteBooking = (index) => {
         if (window.confirm("Are you sure you want to delete this booking?")) {
             deleteBooking(index);

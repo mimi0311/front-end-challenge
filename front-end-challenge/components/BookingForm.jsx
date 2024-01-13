@@ -5,12 +5,8 @@ import { setHours, setMinutes, isToday, getHours, getMinutes  } from 'date-fns';
 import {BookingsContext} from "../Context/BookingContext.jsx";
 import 'react-datepicker/dist/react-datepicker.css';
 
-/**
- *
- * **/
-
 const BookingForm = () => {
-    const { addBooking } = useContext(BookingsContext);
+    const { addBooking } = useContext(BookingsContext); // Contexto para manejar los datos de las reservas
     const [formData, setFormData] = useState({ origin: '', destination: '', numPassengers: '' });
     const [date, setDate] = useState(new Date());
     const [dateTime, setDateTime] = useState(new Date());
@@ -23,6 +19,7 @@ const BookingForm = () => {
         const { name, value } = e.target;
         setFormData(prevState => ({ ...prevState, [name]: value }));
 
+        // Para que el usuario seleccione si o si un origen, destino y numero de pasajeros
         if (value === "") {
             switch (name) {
                 case "numPassengers":
@@ -61,6 +58,7 @@ const BookingForm = () => {
 
         addBooking(newBooking);
 
+        // Acá, después de que se envía el formulario, los datos regresan a su estado inicial
         setFormData({ origin: '', destination: '', numPassengers: '' });
         setDate(new Date());
         setDateTime(new Date());
@@ -85,6 +83,7 @@ const BookingForm = () => {
                             required
                         >
                             <option value="" disabled>Select Origin</option>
+                            // Si se elige un origen, que ese origen ya no apareza en el dropdown de destino
                             {originOptions.filter(option => option !== formData.destination).map((option) => (
                                 <option key={option} value={option}>
                                     {option}
@@ -105,6 +104,7 @@ const BookingForm = () => {
                             className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
                             required>
                             <option value="" disabled>Select Destination</option>
+                            // Si se elige un destino, que ese destino ya no apareza en el dropdown de origen
                             {destinationOptions.filter(option => option !== formData.origin).map((option) => (
                                 <option key={option} value={option}>
                                     {option}
